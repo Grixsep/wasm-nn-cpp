@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Neural Network Trainer & Visualizer</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Chart.js for loss graphs -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- ECharts with ECharts-GL for 3D plots -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+  <script src="mlp.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Neural Network Trainer & Visualizer</h1>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+    </nav>
+  </header>
+  
+  <main>
+    <section class="controls">
+      <div class="control-group">
+        <label for="arch">Network Architecture (e.g., 2,4,1):</label>
+        <input type="text" id="arch" value="2,4,1">
+      </div>
+      <div class="control-group">
+        <label for="lr">Learning Rate:</label>
+        <input type="number" id="lr" value="0.1" step="0.01">
+      </div>
+      <div class="control-group">
+        <label for="momentum">Momentum (0–1):</label>
+        <input type="number" id="momentum" value="0.9" step="0.1" min="0" max="1">
+      </div>
+      <div class="control-group">
+        <label for="epochs">Epochs:</label>
+        <input type="number" id="epochs" value="50">
+      </div>
+      <div class="control-group">
+        <label for="batchSize">Batch Size:</label>
+        <input type="number" id="batchSize" value="4">
+      </div>
+      <div class="control-group">
+        <label for="activation">Activation Function:</label>
+        <select id="activation">
+          <option value="SIGMOID">Sigmoid</option>
+          <option value="RELU">ReLU</option>
+          <option value="TANH">Tanh</option>
+        </select>
+      </div>
+      <!-- New target function selector -->
+      <div class="control-group">
+        <label for="targetFunction">Target Function:</label>
+        <select id="targetFunction">
+          <option value="XOR">XOR (Default)</option>
+          <option value="FANCY_SINE">Fancy Sine</option>
+          <option value="SIMPLE_SINE">Simple Sine</option>
+          <option value="SPIRAL">Spiral</option>
+        </select>
+      </div>
+      <div class="button-group">
+        <button onclick="trainModel()">Train & Visualize</button>
+        <button onclick="saveModel()">Save Model</button>
+        <input type="file" id="loadModelFile" accept="application/json">
+        <button onclick="loadModel()">Load Model</button>
+      </div>
+      <div class="control-group">
+        <label for="datasetFile">Upload Dataset (CSV):</label>
+        <input type="file" id="datasetFile" accept=".csv">
+      </div>
+    </section>
+    
+    <section class="output">
+      <p id="output">Weights: Not trained yet.</p>
+      <div class="charts-container">
+        <!-- Loss graph using Chart.js -->
+        <canvas id="chart" class="loss-chart"></canvas>
+        <!-- 3D surface visualization using ECharts -->
+        <div id="chart3d" class="echart3d"></div>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <p>&copy; 2025 NeuralNetTrainer</p>
+  </footer>
+  
+  <script src="index.js"></script>
+</body>
+</html>
